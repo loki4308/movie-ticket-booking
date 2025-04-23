@@ -32,14 +32,14 @@ public class UserController {
         return structureResponseBuilder.success(HttpStatus.CREATED,"user Registeration succssefully done",userResponse);
     }
 
-    @PutMapping("/users/{email}")
-    public ResponseEntity<ResponseStructure<UserResponse>> updateUser(@Valid @RequestBody UserRequest request, @PathVariable String email){
+    @PutMapping("/users")
+    public ResponseEntity<ResponseStructure<UserResponse>> updateUser(@Valid @RequestBody UserRequest request, @RequestParam String email){
         UserResponse userResponse = userService.updateUser(request, email);
         return structureResponseBuilder.success(HttpStatus.OK,"User Updated Successfully",userResponse);
     }
 
-    @DeleteMapping("/users/{email}")
-    public ResponseEntity<ResponseStructure<UserResponse>> deleteUser(@PathVariable String email){
+    @DeleteMapping("/users")
+    public ResponseEntity<ResponseStructure<UserResponse>> deleteUser(@RequestParam String email){
         UserResponse userResponse = userService.deleteUser(email);
         return structureResponseBuilder.success(HttpStatus.OK, "User Deleted Successfully", userResponse);
     }
