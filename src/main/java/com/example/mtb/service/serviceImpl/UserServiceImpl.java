@@ -43,17 +43,9 @@ public class UserServiceImpl implements UserService {
         if (userDetails == null) {
             throw new EmailNotExistException("user mail not exist " + email);
         }else if (userDetails.isDelete()){
-            throw new EmailNotExistException("User email already deleted");
+            throw new EmailNotExistException("User already deleted");
         }
         return userMapper.toResponse(userRepository.save(userMapper.toUpdateUserDetails(request, userDetails)));
-
-//        if (request.role() == Role.USER) {
-//            User user = new UserMapper().setUser(request, userDetails);
-//            return new UserMapper().toResponse(userRepository.save(user));
-//        } else {
-//            TheaterOwner theaterOwner = new UserMapper().setTheaterOwner(request, userDetails);
-//            return new UserMapper().toResponse(userRepository.save(theaterOwner));
-//        }
     }
 
     @Override
@@ -62,7 +54,7 @@ public class UserServiceImpl implements UserService {
         if (userDetails == null) {
             throw new EmailNotExistException("user mail not exist " + email);
         }else if(userDetails.isDelete()){
-            throw new EmailNotExistException("Email already deleted");
+            throw new EmailNotExistException("User already deleted");
         }
         return userMapper.toResponse(userRepository.save(userMapper.toDeleteUserDetails(userDetails)));
     }
