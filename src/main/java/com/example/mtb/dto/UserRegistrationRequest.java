@@ -1,4 +1,4 @@
-package com.example.mtb.dao;
+package com.example.mtb.dto;
 
 import com.example.mtb.enums.Role;
 
@@ -10,6 +10,7 @@ public record UserRegistrationRequest(
         String password,
         Role role,
         String phoneNumber,
-        LocalDate dataOfBirth
+        LocalDate dateOfBirth
 ) {
+
 }
