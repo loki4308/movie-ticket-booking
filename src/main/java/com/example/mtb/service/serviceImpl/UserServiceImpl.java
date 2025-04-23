@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByEmail(request.email())) {
             throw new EmailAlreadyExistException("user mail already exist " + request.email());
         }
-
         if (request.role() == Role.USER) {
             return userMapper.toResponse(userRepository.save(userMapper.toUser(request)));
         } else {

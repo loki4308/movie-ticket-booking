@@ -1,6 +1,7 @@
 package com.example.mtb.handler;
 
 import com.example.mtb.dto.UserResponse;
+import com.example.mtb.utility.ErrorStructure;
 import com.example.mtb.utility.ResponseStructure;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,22 +28,40 @@ public class FieldErrorExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   HttpStatusCode status,
                                                                   WebRequest request) {
 
-        List<Map<String, String>> errors = new ArrayList<>();
-
-        for (ObjectError error : ex.getBindingResult().getAllErrors()) {
-            if (error instanceof FieldError fieldError) {
-                Map<String, String> err = new HashMap<>();
-                err.put("field", fieldError.getField());
-                err.put("error", fieldError.getDefaultMessage());
-                errors.add(err);
-            } else {
-                Map<String, String> err = new HashMap<>();
-                err.put("field", "global");
-                err.put("error", error.getDefaultMessage());
-                errors.add(err);
-            }
+        List<ObjectError> objectErrors = ex.getAllErrors();
+        List<CustomFieldError> listCustomFieldErrors = new ArrayList<>();
+        for (ObjectError objectError: objectErrors){
+            FieldError fieldError = (FieldError) objectError;
+            CustomFieldError customFieldError = CustomFieldError.builder()
+                    .field(fieldError.getField())
+                    .rejectedValue(fieldError.getRejectedValue())
+                    .errorMessage(fieldError.getDefaultMessage())
+                    .build();
+            listCustomFieldErrors.add(customFieldError);
         }
-
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+        ErrorStructure<Object> errorStructure = ErrorStructure.builder()
+                .errorMessage("can not be null")
+                .errorCode(HttpStatus.BAD_REQUEST.value())
+                .error(listCustomFieldErrors)
+                .build();
+        return new ResponseEntity<>(errorStructure, HttpStatus.BAD_REQUEST);
     }
 }
+
+//List<Map<String, String>> errors = new ArrayList<>();
+//
+//        for (ObjectError error : ex.getBindingResult().getAllErrors()) {
+//            if (error instanceof FieldError fieldError) {
+//                Map<String, String> err = new HashMap<>();
+//                err.put("field", fieldError.getField());
+//                err.put("error", fieldError.getDefaultMessage());
+//                errors.add(err);
+//            } else {
+//                Map<String, String> err = new HashMap<>();
+//                err.put("field", "global");
+//                err.put("error", error.getDefaultMessage());
+//                errors.add(err);
+//            }
+//        }
+//
+//        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
