@@ -25,6 +25,7 @@ public record UserRegistrationRequest(
         String phoneNumber,
 
         @NotNull(message = "Date of Birth is required")
+        @Past(message = "Date of Birth must be in the past")
         LocalDate dateOfBirth
 ) {
 

@@ -24,11 +24,6 @@ public class UserMapper {
         );
     }
 
-//    public static User setDetails(UserRegistrationRequest request){
-//
-//
-//    }
-
     public User toUser(UserRegistrationRequest request){
         User user = new User();
 //        user.setUserId(user.getUserId());
