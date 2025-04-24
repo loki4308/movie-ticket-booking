@@ -27,4 +27,10 @@ public class TheaterController {
         return new StructureResponseBuilder().success(HttpStatus.CREATED, "Theater Created", theaterResponse);
     }
 
+    @GetMapping
+    private ResponseEntity<ResponseStructure<TheaterResponse>> findByTheaterId(@RequestParam String theaterId){
+
+        return new StructureResponseBuilder().success(HttpStatus.FOUND, "")
+    }
+
 }

@@ -6,6 +6,7 @@ import com.example.mtb.entity.Theater;
 import com.example.mtb.entity.TheaterOwner;
 import com.example.mtb.entity.UserDetails;
 import com.example.mtb.exception.EmailNotExistException;
+import com.example.mtb.exception.NotTheaterOwnerException;
 import com.example.mtb.mapper.TheaterMapper;
 import com.example.mtb.repository.TheaterRepository;
 import com.example.mtb.repository.UserRepository;
@@ -23,17 +24,14 @@ public class TheaterServiceImpl implements TheaterService {
 
     @Override
     public TheaterResponse createTheater(TheaterRequest request, String email) {
-
         UserDetails userDetails = userRepository.findByEmail(email);
         if(userDetails == null || userDetails.isDelete()){
             throw new EmailNotExistException("Email not found");
         }
         if(!(userDetails instanceof TheaterOwner)){
-            throw new RuntimeException("User is not a theater owner");
+            throw new NotTheaterOwnerException("User is not a theater owner");
         }
-
         TheaterOwner owner = (TheaterOwner) userDetails;
-
         return theaterMapper
                 .toTheaterResponse(theaterRepository.save(theaterMapper.toTheater(request, email, owner)));
     }
