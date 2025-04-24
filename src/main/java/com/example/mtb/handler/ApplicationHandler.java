@@ -2,6 +2,8 @@ package com.example.mtb.handler;
 
 import com.example.mtb.exception.EmailAlreadyExistException;
 import com.example.mtb.exception.EmailNotExistException;
+import com.example.mtb.exception.NotTheaterOwnerException;
+import com.example.mtb.exception.TheaterNotExistException;
 import com.example.mtb.utility.ResponseStructure;
 import com.example.mtb.utility.StructureResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,16 @@ public class ApplicationHandler<T> {
 
     @ExceptionHandler
     public ResponseEntity<ResponseStructure<T>> handleEmailNotExistException(EmailNotExistException ex){
+        return structureResponseBuilder.error(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ResponseStructure<T>> handleNotTheaterOwnerException(NotTheaterOwnerException ex){
+        return structureResponseBuilder.error(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ResponseStructure<T>> handleTheaterNotExistException(TheaterNotExistException ex){
         return structureResponseBuilder.error(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
     }
 }
