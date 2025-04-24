@@ -6,4 +6,8 @@ import com.example.mtb.repository.TheaterRepository;
 
 public interface TheaterService {
     TheaterResponse createTheater(TheaterRequest request, String email);
+
+    TheaterResponse findTheaterById(String theaterId);
+
+    TheaterResponse updateTheaterById(TheaterRequest request, String id);
 }

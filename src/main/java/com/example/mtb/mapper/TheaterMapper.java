@@ -35,4 +35,13 @@ public class TheaterMapper {
                 .theaterOwner(owner)
                 .build();
     }
+
+    public Theater toUpdateTheater(TheaterRequest request, Theater theater) {
+        theater.setName(request.name());
+        theater.setAddress(request.address());
+        theater.setCity(request.city());
+        theater.setLandmark(request.landmark());
+        theater.setUpdateAt(now);
+        return theater;
+    }
 }

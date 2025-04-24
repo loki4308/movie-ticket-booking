@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/theaters")
+@RequestMapping("/theater")
 @AllArgsConstructor
 public class TheaterController {
 
@@ -28,9 +28,12 @@ public class TheaterController {
     }
 
     @GetMapping
-    private ResponseEntity<ResponseStructure<TheaterResponse>> findByTheaterId(@RequestParam String theaterId){
-
-        return new StructureResponseBuilder().success(HttpStatus.FOUND, "")
+    public ResponseEntity<ResponseStructure<TheaterResponse>> findByTheaterId(@RequestParam String id){
+        return new StructureResponseBuilder().success(HttpStatus.FOUND, "Theater found successfully", theaterService.findTheaterById(id));
     }
 
+    @PutMapping
+    public ResponseEntity<ResponseStructure<TheaterResponse>> updateTheaterById(@RequestBody TheaterRequest request, @RequestParam String id){
+        return new StructureResponseBuilder().success(HttpStatus.OK, "Theater updated successfully", theaterService.updateTheaterById(request, id));
+    }
 }
