@@ -1,5 +1,6 @@
 package com.example.mtb.dto;
 
+import com.example.mtb.entity.TheaterOwner;
 import lombok.Builder;
 
 @Builder
