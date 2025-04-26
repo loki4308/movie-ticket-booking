@@ -30,7 +30,6 @@ public class SeatMapper {
                 seatList.add(seat);
             }
         }
-
         return seatList;
     }
 

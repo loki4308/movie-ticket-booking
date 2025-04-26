@@ -17,6 +17,7 @@ public class Screen {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String screenId;
+    @Enumerated(EnumType.STRING)
     private ScreenType screenType;
     private Integer capacity;
     private Integer noOfRows;
