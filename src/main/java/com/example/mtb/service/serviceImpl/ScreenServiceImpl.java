@@ -2,11 +2,13 @@ package com.example.mtb.service.serviceImpl;
 
 import com.example.mtb.dto.ScreenRequest;
 import com.example.mtb.dto.ScreenResponse;
+import com.example.mtb.dto.SeatResponse;
 import com.example.mtb.dto.TheaterRequest;
 import com.example.mtb.entity.Screen;
 import com.example.mtb.entity.Seat;
 import com.example.mtb.entity.Theater;
 import com.example.mtb.exception.InvalidScreenConfigurationException;
+import com.example.mtb.exception.ScreenNotExistException;
 import com.example.mtb.exception.TheaterNotExistException;
 import com.example.mtb.mapper.ScreenMapper;
 import com.example.mtb.mapper.SeatMapper;
@@ -40,7 +42,14 @@ public class ScreenServiceImpl implements ScreenService {
         List<Seat> seatlist = seatMapper.toSeat(screen);
         screen.setSeats(seatlist);
         Screen savedScreen = screenRepository.save(screen);
-        List<Seat> savedSeat = seatRepository.saveAll(seatlist);
-        return screenMapper.toResponse(savedScreen);
+        List<SeatResponse> seatResponseList = seatMapper.toSeatResponseList(seatRepository.saveAll(seatlist));
+        return screenMapper.toScreenResponse(savedScreen, seatResponseList);
+    }
+
+    @Override
+    public ScreenResponse findByScreenId(String screenId) {
+        Screen screen = screenRepository.findById(screenId).orElseThrow(()-> new ScreenNotExistException("Screen not exist"));
+        List<SeatResponse> seatResponseList = seatMapper.toSeatResponseList(screen.getSeats());
+        return screenMapper.toScreenResponse(screen, seatResponseList);
     }
 }

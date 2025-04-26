@@ -13,18 +13,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/screen")
+@RequestMapping("/screens")
 @AllArgsConstructor
 public class ScreenController {
 
     private ScreenService screenService;
 
-    @PostMapping
+    @PostMapping("/{theaterId}")
     public ResponseEntity<ResponseStructure<ScreenResponse>> createTheater(
             @RequestBody ScreenRequest request,
-            @RequestParam String theaterId
+            @PathVariable String theaterId
     ){
         ScreenResponse screenResponse = screenService.createScreen(request, theaterId);
         return new StructureResponseBuilder().success(HttpStatus.CREATED, "Theater Created", screenResponse);
     }
+
+    @GetMapping("/{screenId}")
+    public ResponseEntity<ResponseStructure<ScreenResponse>> findByScreenId(@PathVariable String screenId){
+        ScreenResponse screenResponse = screenService.findByScreenId(screenId);
+        return new StructureResponseBuilder().success(HttpStatus.FOUND, "Screen found successfully", screenResponse);
+    }
+
 }

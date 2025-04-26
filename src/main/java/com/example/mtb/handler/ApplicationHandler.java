@@ -38,4 +38,9 @@ public class ApplicationHandler<T> {
     public ResponseEntity<ResponseStructure<T>> handleInvalidScreenConfigurationException(InvalidScreenConfigurationException ex){
         return structureResponseBuilder.error(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
     }
+
+    @ExceptionHandler
+    public ResponseEntity<ResponseStructure<T>> handleScreenNotExistException(ScreenNotExistException ex){
+        return structureResponseBuilder.error(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
+    }
 }
