@@ -6,6 +6,7 @@ import com.example.mtb.dto.TheaterRequest;
 import com.example.mtb.entity.Screen;
 import com.example.mtb.entity.Seat;
 import com.example.mtb.entity.Theater;
+import com.example.mtb.exception.InvalidScreenConfigurationException;
 import com.example.mtb.exception.TheaterNotExistException;
 import com.example.mtb.mapper.ScreenMapper;
 import com.example.mtb.mapper.SeatMapper;
@@ -32,7 +33,7 @@ public class ScreenServiceImpl implements ScreenService {
     public ScreenResponse createScreen(ScreenRequest request, String theaterId) {
 
         if(request.capacity() < request.noOfRows()){
-            throw new RuntimeException("Capacity cannot be less than the number of rows.");
+            throw new InvalidScreenConfigurationException("Capacity cannot be less than the number of rows.");
         }
         Theater theater = theaterRepository.findById(theaterId).orElseThrow(() -> new TheaterNotExistException("Theater not found"));
         Screen screen = screenMapper.toScreen(request, theater);
