@@ -3,6 +3,8 @@ package com.example.mtb.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -24,4 +26,7 @@ public class Theater {
 
     @ManyToOne
     private TheaterOwner theaterOwner;
+
+    @OneToMany(mappedBy = "theater")
+    private List<Screen> screen;
 }
