@@ -1,8 +1,30 @@
 package com.example.mtb.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.example.mtb.dto.ScreenRequest;
+import com.example.mtb.dto.ScreenResponse;
+import com.example.mtb.dto.TheaterRequest;
+import com.example.mtb.dto.TheaterResponse;
+import com.example.mtb.service.ScreenService;
+import com.example.mtb.utility.ResponseStructure;
+import com.example.mtb.utility.StructureResponseBuilder;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/screen")
+@AllArgsConstructor
 public class ScreenController {
 
+    private ScreenService screenService;
+
+    @PostMapping
+    public ResponseEntity<ResponseStructure<ScreenResponse>> createTheater(
+            @RequestBody ScreenRequest request,
+            @RequestParam String theaterId
+    ){
+        ScreenResponse screenResponse = screenService.createScreen(request, theaterId);
+        return new StructureResponseBuilder().success(HttpStatus.CREATED, "Theater Created", screenResponse);
+    }
 }

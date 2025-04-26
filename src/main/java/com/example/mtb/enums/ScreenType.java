@@ -2,9 +2,9 @@ package com.example.mtb.enums;
 
 public enum ScreenType {
 
-    TWO_DIMENSION,
-    THREE_DIMENSION,
-    IMAX_TWO_DIMENSION,
-    IMAX_THREE_DIMENSION
+    _2D,
+    _3D,
+    IMAX,
+    _4DX
 
 }

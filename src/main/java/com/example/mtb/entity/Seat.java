@@ -12,6 +12,7 @@ public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String seatId;
+    private String seatName;
     private long createdAt;
 
     @ManyToOne
