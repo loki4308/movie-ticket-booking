@@ -29,5 +29,6 @@ public class Screen {
     private Theater theater;
 
     @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL)
+    @OrderBy("seatName ASC")
     private List<Seat> seats;
 }
