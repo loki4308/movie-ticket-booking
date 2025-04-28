@@ -1,5 +1,6 @@
 package com.example.mtb.mapper;
 
+import com.example.mtb.dto.SeatResponse;
 import com.example.mtb.entity.Screen;
 import com.example.mtb.entity.Seat;
 import com.example.mtb.entity.Theater;
@@ -31,6 +32,16 @@ public class SeatMapper {
             }
         }
         return seatList;
+    }
+    public List<SeatResponse> toSeatResponseList(List<Seat> seats){
+        List<SeatResponse> seatResponseList = new ArrayList<>();
+        for (Seat seat : seats){
+            seatResponseList.add(SeatResponse.builder()
+                    .seatId(seat.getSeatId())
+                    .seatName(seat.getSeatName())
+                    .build());
+        }
+        return seatResponseList;
     }
 
 }

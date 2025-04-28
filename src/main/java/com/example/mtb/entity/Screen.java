@@ -28,6 +28,7 @@ public class Screen {
     @ManyToOne
     private Theater theater;
 
-    @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OrderBy("seatName ASC")
     private List<Seat> seats;
 }

@@ -16,7 +16,8 @@ public record ScreenResponse(
         ScreenType screenType,
         Integer capacity,
         Integer noOfRows,
-        String createdBy
+        String createdBy,
+        List<SeatResponse> seatResponse
 
 ) {
 }

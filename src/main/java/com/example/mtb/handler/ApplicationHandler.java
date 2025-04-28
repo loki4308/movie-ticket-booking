@@ -21,7 +21,7 @@ public class ApplicationHandler<T> {
 
     @ExceptionHandler
     public ResponseEntity<ResponseStructure<T>> handleEmailNotExistException(EmailNotExistException ex){
-        return structureResponseBuilder.error(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
+        return structureResponseBuilder.error(HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
 
     @ExceptionHandler
@@ -31,11 +31,16 @@ public class ApplicationHandler<T> {
 
     @ExceptionHandler
     public ResponseEntity<ResponseStructure<T>> handleTheaterNotExistException(TheaterNotExistException ex){
-        return structureResponseBuilder.error(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
+        return structureResponseBuilder.error(HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
 
     @ExceptionHandler
     public ResponseEntity<ResponseStructure<T>> handleInvalidScreenConfigurationException(InvalidScreenConfigurationException ex){
         return structureResponseBuilder.error(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ResponseStructure<T>> handleScreenNotExistException(ScreenNotExistException ex){
+        return structureResponseBuilder.error(HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
 }
