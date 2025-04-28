@@ -11,9 +11,11 @@ import com.example.mtb.exception.EmailAlreadyExistException;
 import com.example.mtb.exception.EmailNotExistException;
 import com.example.mtb.mapper.UserMapper;
 import com.example.mtb.repository.UserRepository;
+import com.example.mtb.security.SecurityConfig;
 import com.example.mtb.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +24,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
  // current time in milliseconds
     @Override
@@ -29,10 +32,17 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByEmail(request.email())) {
             throw new EmailAlreadyExistException("user mail already exist " + request.email());
         }
+
         if (request.role() == Role.USER) {
-            return userMapper.toResponse(userRepository.save(userMapper.toUser(request)));
+            User user = userMapper.toUser(request);
+            String encodedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encodedPassword);
+            return userMapper.toResponse(userRepository.save(user));
         } else {
-            return userMapper.toResponse(userRepository.save(userMapper.toTheaterOwner(request)));
+            TheaterOwner theaterOwner = userMapper.toTheaterOwner(request);
+            String encodedPassword = passwordEncoder.encode(theaterOwner.getPassword());
+            theaterOwner.setPassword(encodedPassword);
+            return userMapper.toResponse(userRepository.save(theaterOwner));
         }
     }
 
