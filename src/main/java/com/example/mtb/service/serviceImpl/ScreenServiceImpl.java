@@ -52,4 +52,11 @@ public class ScreenServiceImpl implements ScreenService {
         List<SeatResponse> seatResponseList = seatMapper.toSeatResponseList(screen.getSeats());
         return screenMapper.toScreenResponse(screen, seatResponseList);
     }
+
+    @Override
+    public ScreenResponse updateScreenById(ScreenRequest request, String screenId) {
+        Screen screen = screenRepository.findById(screenId).orElseThrow(()-> new ScreenNotExistException("Screen not exist"));
+        Screen updatedScreen = screenMapper.toUpdateScreen(request, screen) ;
+        return null;
+    }
 }

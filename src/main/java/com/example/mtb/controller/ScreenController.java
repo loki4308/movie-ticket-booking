@@ -10,9 +10,10 @@ import com.example.mtb.utility.StructureResponseBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 //@RequestMapping("/screens")
 @AllArgsConstructor
 public class ScreenController {
@@ -20,7 +21,7 @@ public class ScreenController {
     private ScreenService screenService;
 
     @PostMapping("/theaters/{theaterId}/screens")
-    public ResponseEntity<ResponseStructure<ScreenResponse>> createTheater(
+    public ResponseEntity<ResponseStructure<ScreenResponse>> createScreen(
             @RequestBody ScreenRequest request,
             @PathVariable String theaterId
     ){
@@ -33,5 +34,12 @@ public class ScreenController {
         ScreenResponse screenResponse = screenService.findByScreenId(screenId);
         return new StructureResponseBuilder().success(HttpStatus.FOUND, "Screen found successfully", screenResponse);
     }
+
+    @PutMapping("/screens/{screenId}")
+    public ResponseEntity<ResponseStructure<ScreenResponse>> updateScreenById(@RequestBody ScreenRequest request, @PathVariable String screenId){
+        ScreenResponse screenResponse = screenService.updateScreenById(request, screenId);
+        return new StructureResponseBuilder().success(HttpStatus.OK, "Screen Updated Successfully", screenResponse);
+    }
+
 
 }

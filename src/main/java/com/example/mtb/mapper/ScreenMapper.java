@@ -39,4 +39,7 @@ public class ScreenMapper {
     }
 
 
+    public Screen toUpdateScreen(ScreenRequest request, Screen screen) {
+        return null;
+    }
 }
