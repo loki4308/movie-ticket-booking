@@ -9,12 +9,14 @@ import com.example.mtb.utility.StructureResponseBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/theater")
 @AllArgsConstructor
+@PreAuthorize("hasAuthority('THEATER_OWNER')")
 public class TheaterController {
 
     private final TheaterService theaterService;

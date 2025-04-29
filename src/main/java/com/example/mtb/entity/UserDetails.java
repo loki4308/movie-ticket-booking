@@ -26,7 +26,7 @@ public class UserDetails {
     private String phoneNumber;
     private LocalDate dateOfBirth;
     private Long createdAt, updatedAt, deleteAt;
-    private boolean isDelete = true;
+    private boolean isDelete = false;
 
 
 
