@@ -20,7 +20,7 @@ public class ScreenController {
 
     private ScreenService screenService;
 
-    @PostMapping("/theaters/{theaterId}/screens")
+    @PostMapping("/theater/{theaterId}/screens")
     public ResponseEntity<ResponseStructure<ScreenResponse>> createScreen(
             @RequestBody ScreenRequest request,
             @PathVariable String theaterId
