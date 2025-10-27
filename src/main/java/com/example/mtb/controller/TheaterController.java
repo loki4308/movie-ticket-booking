@@ -6,6 +6,7 @@ import com.example.mtb.entity.Theater;
 import com.example.mtb.service.TheaterService;
 import com.example.mtb.utility.ResponseStructure;
 import com.example.mtb.utility.StructureResponseBuilder;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class TheaterController {
 
     @PostMapping
     public ResponseEntity<ResponseStructure<TheaterResponse>> createTheater(
-            @RequestBody TheaterRequest request,
+            @Valid  @RequestBody TheaterRequest request,
             @RequestParam String email
             ){
         TheaterResponse theaterResponse = theaterService.createTheater(request, email);
@@ -34,7 +35,7 @@ public class TheaterController {
     }
 
     @PutMapping
-    public ResponseEntity<ResponseStructure<TheaterResponse>> updateTheaterById(@RequestBody TheaterRequest request, @RequestParam String id){
+    public ResponseEntity<ResponseStructure<TheaterResponse>> updateTheaterById(@Valid @RequestBody TheaterRequest request, @RequestParam String id){
         return new StructureResponseBuilder().success(HttpStatus.OK, "Theater updated successfully", theaterService.updateTheaterById(request, id));
     }
 }
