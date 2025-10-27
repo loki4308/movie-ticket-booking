@@ -7,6 +7,7 @@ import com.example.mtb.dto.TheaterResponse;
 import com.example.mtb.service.ScreenService;
 import com.example.mtb.utility.ResponseStructure;
 import com.example.mtb.utility.StructureResponseBuilder;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class ScreenController {
 
     @PostMapping("/theater/{theaterId}/screens")
     public ResponseEntity<ResponseStructure<ScreenResponse>> createScreen(
-            @RequestBody ScreenRequest request,
+            @Valid  @RequestBody ScreenRequest request,
             @PathVariable String theaterId
     ){
         ScreenResponse screenResponse = screenService.createScreen(request, theaterId);
@@ -36,7 +37,7 @@ public class ScreenController {
     }
 
     @PutMapping("/screens/{screenId}")
-    public ResponseEntity<ResponseStructure<ScreenResponse>> updateScreenById(@RequestBody ScreenRequest request, @PathVariable String screenId){
+    public ResponseEntity<ResponseStructure<ScreenResponse>> updateScreenById(@Valid @RequestBody ScreenRequest request, @PathVariable String screenId){
         ScreenResponse screenResponse = screenService.updateScreenById(request, screenId);
         return new StructureResponseBuilder().success(HttpStatus.OK, "Screen Updated Successfully", screenResponse);
     }
