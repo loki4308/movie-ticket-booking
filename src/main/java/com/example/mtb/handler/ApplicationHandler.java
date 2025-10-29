@@ -43,4 +43,19 @@ public class ApplicationHandler<T> {
     public ResponseEntity<ResponseStructure<T>> handleScreenNotExistException(ScreenNotExistException ex){
         return structureResponseBuilder.error(HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
+
+    @ExceptionHandler
+    public ResponseEntity<ResponseStructure<T>> handleMovieNotFoundException(MovieNotFoundByIdException ex){
+        return structureResponseBuilder.error(HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ResponseStructure<T>> handleCityNotFoundException(CityNotFoundException ex){
+        return structureResponseBuilder.error(HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ResponseStructure<T>> handleShowTimeConflictException(ShowTimeConflictException ex){
+        return structureResponseBuilder.error(HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    }
 }

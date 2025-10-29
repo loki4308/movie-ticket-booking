@@ -28,5 +28,5 @@ public class Theater {
     private TheaterOwner theaterOwner;
 
     @OneToMany(mappedBy = "theater")
-    private List<Screen> screen;
+    private List<Screen> screenList;
 }
