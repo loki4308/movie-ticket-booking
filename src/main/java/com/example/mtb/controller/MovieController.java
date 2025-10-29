@@ -7,13 +7,15 @@ import com.example.mtb.utility.StructureResponseBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Set;
 
-@RestController
+@Controller
 @AllArgsConstructor
 public class MovieController {
 
@@ -25,10 +27,11 @@ public class MovieController {
         return new StructureResponseBuilder().success(HttpStatus.OK, "Movie has been successfully fetched", movieResponse);
     }
 
-    @GetMapping("/movies/search")
-    public ResponseEntity<ResponseStructure<Set<MovieResponse>>> searchMovies(String search){
+    // This i have done before doing rating feature.
+    @GetMapping("/mov/{search}")
+    public ResponseEntity<ResponseStructure<Set<MovieResponse>>> searchMovies(@PathVariable String search){
         Set<MovieResponse> movieResponses = movieService.searchMovies(search);
-        return responseBuilder.sucess(HttpStatus.OK, "Movies fetched Succesfully", movieResponses);
+        return new StructureResponseBuilder().success(HttpStatus.OK, "Movies fetched Succesfully", movieResponses);
     }
 
 }

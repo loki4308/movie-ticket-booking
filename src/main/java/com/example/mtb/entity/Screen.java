@@ -1,10 +1,12 @@
 package com.example.mtb.entity;
 
 import com.example.mtb.enums.ScreenType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -31,4 +33,8 @@ public class Screen {
     @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @OrderBy("seatName ASC")
     private List<Seat> seats;
+
+    @OneToMany(mappedBy = "screen", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<Show> shows;
 }

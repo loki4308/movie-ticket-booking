@@ -23,7 +23,8 @@ public class Movie {
 
     private String title;
     private String description;
-    @ElementCollection
+
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> castList;
 
     private Duration runtime;

@@ -41,7 +41,11 @@ public class Booking {
     private Show show;
 
     @ManyToMany
-    @JoinColumn(name = "seat_id")
+    @JoinTable(
+            name = "booking_seat", // name of the join table
+            joinColumns = @JoinColumn(name = "booking_id"), // FK to Booking
+            inverseJoinColumns = @JoinColumn(name = "seat_id") // FK to Seat
+    )
     private List<Seat> seats;
 
 
